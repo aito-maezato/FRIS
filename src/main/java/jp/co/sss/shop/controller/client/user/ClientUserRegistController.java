@@ -39,7 +39,7 @@ public class ClientUserRegistController {
 	 * 
 	 * @return "redirect:/client/user/regist/input" 入力画面　表示処理
 	 */
-	@RequestMapping(path = "/client/user/regist/input", method = RequestMethod.POST)
+	@RequestMapping(path = "/client/user/regist/input/init", method = RequestMethod.POST)
 	public String registInput() {
 
 		//セッションスコープより入力情報を取り出す
@@ -53,7 +53,7 @@ public class ClientUserRegistController {
 		}
 
 		//登録入力画面　表示処理
-		return "redirect:/client/user/regist/input";
+		return "client/user/regist_input";
 
 	}
 	
@@ -63,7 +63,7 @@ public class ClientUserRegistController {
 	 * @param model Viewとの値受渡し
 	 * @return "client/user/regist_input" 入力画面　表示
 	 */
-	@RequestMapping(path = "/client/user/regist/input", method = RequestMethod.GET)
+	@RequestMapping(path = "/client/user/regist/input/init", method = RequestMethod.GET)
 	public String registInput(Model model) {
 
 		UserForm userForm = (UserForm) session.getAttribute("userForm");

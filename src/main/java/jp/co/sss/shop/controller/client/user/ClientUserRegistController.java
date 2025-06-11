@@ -1,5 +1,6 @@
 package jp.co.sss.shop.controller.client.user;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.UserRepository;
 
@@ -139,5 +141,48 @@ public class ClientUserRegistController {
 		//登録確認画面　表示処理
 		return "client/user/regist_check";
 
+	}
+	
+	/**
+	 * 情報登録処理
+	 *
+	 * @return "redirect:/client/user/regist/complete" 登録完了画面　表示処理
+	 */
+	@RequestMapping(path = "/client/user/regist/complete", method = RequestMethod.POST)
+	public String registComplete() {
+
+		//セッション保持情報から入力値再取得
+		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		if (userForm == null) {
+			// セッション情報がない場合、エラー
+			return "redirect:/syserror";
+		}
+
+		// 会員情報を生成
+		User user = new User();
+
+		// 入力フォーム情報をエンティティに設定
+		BeanUtils.copyProperties(userForm, user);
+
+		// DB登録
+		userRepository.save(user);
+
+		//セッションから入力情報削除
+		session.removeAttribute("userForm");
+
+		//登録完了画面　表示処理
+		//二重送信防止のためリダイレクトを行う
+		return "redirect:/client/user/regist/complete";
+	}
+	
+	/**
+	 * 登録完了画面　表示処理
+	 *
+	 * @return "client/user/regist_complete" 登録完了画面　表示
+	 */
+	@RequestMapping(path = "/client/user/regist/complete", method = RequestMethod.GET)
+	public String registCompleteFinish() {
+
+		return "client/user/regist_complete";
 	}
 }

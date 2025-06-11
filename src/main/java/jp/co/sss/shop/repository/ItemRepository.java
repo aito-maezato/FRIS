@@ -30,10 +30,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	/**
 	 * 商品IDと削除フラグを条件に検索（管理者機能で利用）
 	 * @param id 商品ID
-	 * @param deleteFlag 削除フラグ
+	 * @param pageable 削除フラグ
 	 * @return 商品エンティティ
 	 */
-	public Item findByIdAndDeleteFlag(Integer id, int deleteFlag);
+	public Item findByIdAndDeleteFlag(Integer id, int pageable);
 
 	/**
 	 * 商品名と削除フラグを条件に検索 (ItemValidatorで利用)

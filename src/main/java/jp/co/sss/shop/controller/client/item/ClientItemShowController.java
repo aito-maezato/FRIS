@@ -63,6 +63,7 @@ public class ClientItemShowController {
 			// 商品一覧画面を表示
 			return "client/item/list";  
 		}
+		
 	}
 	
 

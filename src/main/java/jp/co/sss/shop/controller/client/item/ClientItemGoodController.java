@@ -57,10 +57,5 @@ public class ClientItemGoodController {
 	}
 	
 	
-	@RequestMapping(path = "/client/item/list/1" , method = { RequestMethod.GET, RequestMethod.POST })
-	public String showList(Model model) {
-		System.out.println("お客さん！リストに遷移！！");
-
-		return "client/item/list";
-	}
+	
 }

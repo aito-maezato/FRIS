@@ -10,12 +10,12 @@
 <body class="user">
 
 	<h2 th:class="title" th:text="#{item}+#{title.detail}"></h2>
-	<h3>Gitのテストするためのやつ  by新垣</h3>
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
 			<div class="item_image_area">
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
+				<a th:href="#">いいね</a>
 			</div>
 			<dl class="item_detail_list">
 				<dt>[[#{data.item.name}]]</dt>
@@ -40,6 +40,7 @@
 			<form th:action="@{/client/item/list/1}" method="post">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
+			
 		</div>
 	</div>
 

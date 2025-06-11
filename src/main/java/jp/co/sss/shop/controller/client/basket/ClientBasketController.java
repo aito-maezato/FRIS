@@ -115,7 +115,7 @@ public class ClientBasketController {
 			session.removeAttribute("basketBeans");
 		}
 		
-		return  "redirect: /client/basket/list";////カートへの追加メソッド出来次第リダイレクトに変更
+		return  "client/basket/list";////カートへの追加メソッド出来次第リダイレクトに変更
 		
 	}
 	

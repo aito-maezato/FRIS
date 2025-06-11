@@ -48,11 +48,11 @@ public class ClientBasketController {
 		List<BasketBean> basketList = new ArrayList<>();
 		BasketBean basketBean1 = new BasketBean(5,"ごぼう",5);
 		basketBean1.setOrderNum(2); 
-		BasketBean basketBean2 = new BasketBean(6,"だんご",5);//
-		basketBean2.setOrderNum(2);// 
+//		BasketBean basketBean2 = new BasketBean(6,"だんご",5);//
+//		basketBean2.setOrderNum(2);// 
 		
 		basketList.add(basketBean1);
-		basketList.add(basketBean2);
+//		basketList.add(basketBean2);
 		session.setAttribute("basketBeans", basketList);
 		
 		return "redirect:/client/basket/list";

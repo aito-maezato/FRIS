@@ -3,6 +3,7 @@ package jp.co.sss.shop.controller.client.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.repository.GoodRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
+import jp.co.sss.shop.entity.Good;
 
 @Controller
 public class ClientItemGoodController {
@@ -21,6 +24,11 @@ public class ClientItemGoodController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+	/**
+	 * いいね
+	 */
+	@Autowired
+	GoodRepository goodRepository;
 	
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -56,6 +64,12 @@ public class ClientItemGoodController {
 		return "client/item/detail";
 	}
 	
-	
-	
+	// いいね実行
+	@RequestMapping("/client/item/detail/{id}/like")
+	public String Good(@PathVariable int id, Model model) {
+		goodRepository.count();
+		System.out.println();
+//		return "client/item/detail/{id}";
+		return "client/item/list";
+	}
 }

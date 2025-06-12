@@ -26,7 +26,12 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC,i.id DESC")
 	Page<Item> findByDeleteFlagOrderByInsertDateDescPage(
 	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
-
+	
+	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.delleteFlag =:deleteFlag ORDER BY i.revenue DESC, i.id DESC")
+	 Page<Item> findByDeleteFlagOrderByRevenueDescPage(
+			 @Param(value = "deleteFrag")int deleteFlag, Pageable pageable);
+	
+	
 	/**
 	 * 商品IDと削除フラグを条件に検索（管理者機能で利用）
 	 * @param id 商品ID

@@ -52,5 +52,12 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	@Query("SELECT c FROM Category c WHERE c.deleteFlag =:deleteFlag ORDER BY c.insertDate DESC,c.id DESC")
 	Page<Category> findByDeleteFlagOrderByInsertDateDescIdDescPage(
 			@Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
-
+	
+	//kuroriku
+	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag = :deleteFlag AND (:categoryId IS NULL OR c.id = :categoryId) ORDER BY i.insertDate DESC, i.id DESC")
+	Page<Category> findByCategoryIdAndDeleteFlag(
+	    @Param("categoryId") Integer categoryId,
+	    @Param("deleteFlag") int deleteFlag,
+	    Pageable pageable
+	);
 }

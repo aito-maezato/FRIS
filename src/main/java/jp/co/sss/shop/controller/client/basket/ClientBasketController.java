@@ -4,20 +4,27 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.BasketBean;
+import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.ItemRepository;
 
 @Controller
 public class ClientBasketController {
 	
 	final Integer DELETE_OREDER_NUM = 1;
+	final Integer INCREMENT_OREDER_NUM = 1;
 	final Integer NO_OREDER = 0;
+	final Integer SOLDOUT = 0;
 	/**
 	 * 商品情報
 	 */
@@ -26,18 +33,66 @@ public class ClientBasketController {
 	
 	
 	/**
-	 * カート一覧表示用
+	 * カート一覧表示用 & 在庫チェック
 	 * 
 	 * @param session
 	 * @return
 	 */
 	@RequestMapping(path = "/client/basket/list")
-	public String basketList() {
+	public String basketList(Model model,HttpSession session) {
+		List<String> itemNameListLessThan = new ArrayList<>();
+		List<String> itemNameListZero = new ArrayList<>();
+		List<BasketBean> basketList = new ArrayList<>();
+		basketList = (List<BasketBean>)session.getAttribute("basketBeans");
+		if(basketList != null) {
+			
+			//在庫チェック
+			for(int i = 0; i < basketList.size(); i++) {
+				//注文数が在庫数を超過した場合、注文数を在庫数と同数にする。商品名の名前記録
+				if(basketList.get(i).getStock() < basketList.get(i).getOrderNum() && ! basketList.get(i).getStock().equals(SOLDOUT)) {
+					itemNameListLessThan.add(basketList.get(i).getName());
+					basketList.get(i).setOrderNum(basketList.get(i).getStock());
+					
+				}
+				
+				//在庫数0の商品名記録
+				if(basketList.get(i).getStock().equals(SOLDOUT)){
+					itemNameListZero.add(basketList.get(i).getName());
+				}
+				
+			}
+			
+			//記録した商品名をスコープで保存
+			if(! itemNameListLessThan.isEmpty()) {
+				model.addAttribute("itemNameListLessThan",itemNameListLessThan);
+			}else if (! itemNameListZero.isEmpty()){
+				model.addAttribute("itemNameListZero",itemNameListZero);
+			}
+			
+			
+			//在庫0の商品をカートから削除
+			Iterator<BasketBean> iterator = basketList.iterator();
+			while (iterator.hasNext()) {
+				BasketBean item = iterator.next();
+		 
+		        if(item.getStock().equals(SOLDOUT)) {
+		            iterator.remove();
+		          
+		        } 
+		    }
+			
+			//商品削除でカートが空ならスコープ削除
+			if(basketList.isEmpty()) {
+				session.removeAttribute("basketBeans");
+			}
+			
+		}
 		
 		return "client/basket/list";
 	}
 	
 	/**
+	 * testメソッド
 	 * カートへの商品追加用
 	 * 
 	 * @param session
@@ -46,38 +101,78 @@ public class ClientBasketController {
 	@RequestMapping(path = "/client/basket/list/set")
 	public String basketSet(HttpSession session) {
 		List<BasketBean> basketList = new ArrayList<>();
-		BasketBean basketBean1 = new BasketBean(5,"ごぼう",5);
-		basketBean1.setOrderNum(2); 
-//		BasketBean basketBean2 = new BasketBean(6,"だんご",5);//
-//		basketBean2.setOrderNum(2);// 
+		basketList = (List<BasketBean>)session.getAttribute("basketBeans");
 		
-		basketList.add(basketBean1);
-//		basketList.add(basketBean2);
-		session.setAttribute("basketBeans", basketList);
-		
+		//セッションスコープが空のとき新規作成＆商品追加
+		if(basketList== null) {
+			List<BasketBean> newBasketList = new ArrayList<>();
+			BasketBean basketBean1 = new BasketBean(5,"ごぼう",0);
+			basketBean1.setOrderNum(50); 
+			newBasketList.add(basketBean1);
+			
+			session.setAttribute("basketBeans", newBasketList);
+		}
 		return "redirect:/client/basket/list";
 	}
 	
 	/**
-	 * カート追加実装途中
+	 * カートへ追加
 	 * 
-	 * 
+	 * @param session
+	 * @param itemForm
+	 * @return リダイレクト:/client/basket/list
 	 */
-//	@RequestMapping(path = "/client/basket/list/set",method = RequestMethod.POST)
-//	public String basketAdd(HttpSession session) {
-//		List<BasketBean> basketBeans = new ArrayList<>();
-//		basketBeans = (List<BasketBean>)session.getAttribute("basketBeans");
-//		if(basketBeans.isEmpty()) {
-//			session.setAttribute("basketBeans", basketBeans);
-//			
-//		}
-//		return "redirect:client/basket/list";
-//	}
+	@RequestMapping(path = "/client/basket/add",method = RequestMethod.POST)
+	public String basketAdd(HttpSession session, ItemForm itemForm) {
+		//商品情報取得
+		itemForm.getId();
+		Item item = itemRepository.getReferenceById(itemForm.getId());
+		ItemBean itemBean = new ItemBean();
+		BeanUtils.copyProperties(item,itemBean); 
+		
+		itemBean.getId();
+		BasketBean basketBean = new BasketBean();
+		basketBean.setId(itemBean.getId());
+		basketBean.setName(itemBean.getName());
+		basketBean.setStock(itemBean.getStock());
+		
+		List<BasketBean> basketBeans = new ArrayList<>();
+		List<BasketBean> newBasketList = new ArrayList<>();
+		
+		//セッションスコープが空のとき新規作成＆商品追加
+		basketBeans = (List<BasketBean>)session.getAttribute("basketBeans");
+		if(basketBeans == null) {
+			newBasketList.add(basketBean);
+			
+			session.setAttribute("basketBeans", newBasketList);
+			
+		
+		}else {
+			int count = 0;
+			int num = 0;
+			
+			//カート内の商品と同じ場合注文数を増加
+			for(BasketBean selectbasketBean:basketBeans) {
+				if(selectbasketBean.getId().equals(itemForm.getId() ) ) {
+					count += 1;
+					basketBeans.get(num).setOrderNum(basketBeans.get(num).getOrderNum() + INCREMENT_OREDER_NUM);  
+				}
+				num += 1;
+			}
+			//同名商品がない場合スコープに要素追加
+			if(count <= 0) {
+				basketBeans.add(basketBean);
+			}
+		
+		}
+		
+		return "redirect:/client/basket/list";
+	}
 	
 	
 	/**
 	 * カート内商品削除ボタン(注文数1減少、注文数0の場合商品削除)
-	 * 実装途中(リダイレクト：カート追加機能実装時に修正)
+	 * 
 	 * 
 	 * @param session
 	 * @param basketBean
@@ -115,7 +210,7 @@ public class ClientBasketController {
 			session.removeAttribute("basketBeans");
 		}
 		
-		return  "client/basket/list";////カートへの追加メソッド出来次第リダイレクトに変更
+		return  "redirect:/client/basket/list";
 		
 	}
 	
@@ -129,7 +224,7 @@ public class ClientBasketController {
 	public String basketAllDelete(HttpSession session) {
 		session.removeAttribute("basketBeans");
 
-		return  "client/basket/list"; //カートへの追加メソッド出来次第リダイレクトに変更
+		return  "redirect:/client/basket/list";
 	}
 	
 	

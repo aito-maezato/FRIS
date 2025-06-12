@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-
 import jp.co.sss.shop.util.URLCheck;
 
 /**
@@ -35,7 +34,7 @@ public class LoginCheckFilter extends HttpFilter {
 				// 不正アクセスの場合、ログイン画面にリダイレクト
 
 				// ログイン画面へリダイレクト
-				response.sendRedirect(request.getContextPath() + "/login");
+//				response.sendRedirect(request.getContextPath() + "/login");
 			} else {
 				chain.doFilter(request, response);
 			}

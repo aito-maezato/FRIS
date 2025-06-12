@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.ReviewsRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
 
@@ -21,6 +22,10 @@ public class ClientItemGoodController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+	
+	//口コミ情報
+	@Autowired
+	ReviewsRepository reviewsRepository;
 	
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -52,6 +57,9 @@ public class ClientItemGoodController {
 		model.addAttribute("item", itemBean);
 		//商品登録・変更・削除用のセッションスコープを初期化
 		session.removeAttribute("itemForm");
+		
+		//商品の口コミをリクエストスコープに保存
+		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
 		
 		return "client/item/detail";
 	}

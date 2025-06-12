@@ -40,9 +40,32 @@
 			<form th:action="@{/client/item/list/1}" method="post">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
-			
 		</div>
-	</div>
+		<div>
+			<h1>口コミを投稿！！</h1>
+			<form th:action="@{/client/item/detail/Reviews}" method="post" class="user_info_form">
+				<textarea name="reviews" cols="50" rows="10" maxlength="20"></textarea><br>
+				<input type="submit" value="投稿" class="post_button">
+				<input type="hidden" name="userId" th:value="${session.user.id}">
+				<input type="hidden" name="itemId" th:value="*{id}">
+			</form>
+			<h1>まわりの口コミーーーーーーーーーーーーーーーーー</h1>
+			<table>
+				<!--/* 口コミ一覧 */-->
+				<tr th:each="kuchikomi: ${reviews}">
+					<!--				口コミを登録した人の名前を表示<td th:text="${kuchikomi.userId}"></td>-->
+					<td th:text="${kuchikomi.Reviews}"></td>
+					<!--自分が書いた口コミは削除可能にする-->
+					<td>
+						<form th:action="@{/client/item/detail/Reviews/delete_check_flag}">
+							<input type="submit" value="削除" class="delete_flag_change">
+							 <input type="hidden" name="hidden-name" th:value="*{id}">
+						</form>
+					</td>
+				</tr>
+			</table>
+		</div>
+		</div>
 
 </body>
 

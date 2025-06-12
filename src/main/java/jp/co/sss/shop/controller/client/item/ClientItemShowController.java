@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.ReviewsRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
 
@@ -27,7 +28,9 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
-
+	
+	@Autowired
+	ReviewsRepository reviewsRepository;
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
@@ -57,6 +60,7 @@ public class ClientItemShowController {
 			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable);
 			// ページ内の商品リストを取得
 			List<Item> itemList = itemsPage.getContent();
+			
 			// View へ商品一覧とページ情報を渡す
 			model.addAttribute("items", itemList);
 			model.addAttribute("pages", itemsPage);

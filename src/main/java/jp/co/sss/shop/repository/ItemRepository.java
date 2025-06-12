@@ -27,9 +27,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	Page<Item> findByDeleteFlagOrderByInsertDateDescPage(
 	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
 	
-	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.delleteFlag =:deleteFlag ORDER BY i.revenue DESC, i.id DESC")
-	 Page<Item> findByDeleteFlagOrderByRevenueDescPage(
-			 @Param(value = "deleteFrag")int deleteFlag, Pageable pageable);
+//	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.delleteFlag =:deleteFlag ORDER BY i.revenue DESC, i.id DESC")
+//	 Page<Item> findByDeleteFlagOrderByRevenueDescPage(
+//			 @Param(value = "deleteFrag")int deleteFlag, Pageable pageable);
 	
 	
 	/**

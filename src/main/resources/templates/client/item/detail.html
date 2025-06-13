@@ -15,11 +15,10 @@
 			<div class="item_image_area">
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
-				
-				<form th:action="@{/client/item/detail/{id}/like}">
-					<input type="submit" value="いいね">
-				</form>
-				<a class="good_button">いいね</a>
+
+				<a th:href="@{/client/item/detail/like/} + ${item.id}" class="good_button" >
+					いいね
+				</a>
 				
 			</div>
 			<dl class="item_detail_list">

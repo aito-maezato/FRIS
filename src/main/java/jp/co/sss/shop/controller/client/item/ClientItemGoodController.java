@@ -3,7 +3,7 @@ package jp.co.sss.shop.controller.client.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +30,7 @@ public class ClientItemGoodController {
 	@Autowired
 	GoodRepository goodRepository;
 	
+
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
@@ -64,12 +65,22 @@ public class ClientItemGoodController {
 		return "client/item/detail";
 	}
 	
-	// いいね実行
-	@RequestMapping("/client/item/detail/{id}/like")
-	public String Good(@PathVariable int id, Model model) {
-		goodRepository.count();
-		System.out.println();
-//		return "client/item/detail/{id}";
-		return "client/item/list";
+	// いいね押されたとき
+	@RequestMapping(path = "/client/item/detail/like/{id}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String Good(@PathVariable Integer id, Model model, Good good) {
+
+		// 対象の商品情報を取得
+		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
+		//Itemエンティティの各フィールドの値をItemBeanにコピー
+		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+		// 商品情報をViewへ渡す
+		model.addAttribute("item", itemBean);
+		
+		//goodRepository.existsById(id);
+		//goodRepository.save(good);
+		
+		
+		System.out.println("いいね押した、idは" + id);
+		return "redirect:/client/item/detail/{id}";
 	}
 }

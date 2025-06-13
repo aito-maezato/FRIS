@@ -54,11 +54,6 @@ public class Item {
 	@Column
 	private Integer stock;
 	
-	/**
-	 * 売り上げ
-	 */
-	@Column
-	private Integer Revenue;
 
 	/**
 	 * 商品画像ファイル名
@@ -107,14 +102,13 @@ public class Item {
 	 * @param image 画像ファイル名
 	 * @param category_name カテゴリ名
 	 */
-	public Item(Integer id, String name, String description, String image, String category_name, Integer Revenue) {
+	public Item(Integer id, String name, String description, String image, String category_name) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.image = image;
 		this.category = new Category();
 		this.category.setName(category_name);
-		this.Revenue= Revenue;
 	}
 
 	/**
@@ -216,21 +210,6 @@ public class Item {
 		this.stock = stock;
 	}
 
-	/**
-	 * 売り上げの取得
-	 * @return 売上数
-	 */
-	public Integer getRevenue() {
-		return Revenue;
-	}
-	
-	/**
-	 * 売り上げのセット
-	 * @param revenue 在庫数
-	 */
-	public void setRevenue(Integer revenue) {
-		Revenue = revenue;
-	}
 	/**
 	 * 画像ファイル名の取得
 	 * @return 画像ファイル名

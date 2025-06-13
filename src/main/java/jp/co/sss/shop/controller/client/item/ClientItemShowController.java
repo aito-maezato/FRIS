@@ -64,11 +64,11 @@ public class ClientItemShowController {
 			return "client/item/list";  
 		}
 		
-		
+		//売れ筋順処理
 		@RequestMapping(path = "/client/item/list/2", method = { RequestMethod.GET, RequestMethod.POST })
 		public String showItemListBysell(Model model, Pageable pageable) {
 			// 商品情報を検索
-			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByRevenueDescPage(Constant.NOT_DELETED, pageable);
+			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable);
 			// ページ内の商品リストを取得
 			List<Item> itemList = itemsPage.getContent();
 			// View へ商品一覧とページ情報を渡す

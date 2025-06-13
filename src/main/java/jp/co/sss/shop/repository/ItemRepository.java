@@ -21,15 +21,22 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * 商品情報を登録日付順に取得 管理者機能で利用
 	 * @param deleteFlag 削除フラグ
 	 * @param pageable ページング情報
-	 * @return 商品エンティティのページオブジェクト
+	 * @return 新着順のページオブジェクト
 	 */
 	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC,i.id DESC")
 	Page<Item> findByDeleteFlagOrderByInsertDateDescPage(
 	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
 	
-	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.delleteFlag =:deleteFlag ORDER BY i.revenue DESC, i.id DESC")
-	 Page<Item> findByDeleteFlagOrderByRevenueDescPage(
-			 @Param(value = "deleteFrag")int deleteFlag, Pageable pageable);
+	/**
+	 * 商品情報を登録日付順に取得 管理者機能で利用
+	 * @param deleteFlag 削除フラグ
+	 * @param pageable ページング情報
+	 * @return 売れ筋順のページオブジェクト
+	 */
+	@Query("SELECT i FROM Item i INNER JOIN i.category c INNER JOIN i.orderItemList oil WHERE i.deleteFlag =:deleteFlag GROUP BY i ORDER BY SUM(oil.quantity) DESC")
+	Page<Item> findByDeleteFlagOrderByHotSellDescPage(
+	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
+	
 	
 	
 	/**

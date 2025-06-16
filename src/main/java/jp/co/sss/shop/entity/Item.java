@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
@@ -84,6 +86,14 @@ public class Item {
 	 */
 	@OneToMany(mappedBy = "item")
 	private List<OrderItem> orderItemList;
+	
+	@ManyToMany
+	@JoinTable(
+	    name = "item_allergies",
+	    joinColumns = @JoinColumn(name = "item_id"),
+	    inverseJoinColumns = @JoinColumn(name = "allergy_id")
+	)
+	private List<Allergy> allergies;
 
 	/**
 	 * コンストラクタ
@@ -285,6 +295,20 @@ public class Item {
 	 */
 	public void setOrderItemsList(List<OrderItem> orderItemList) {
 		this.orderItemList = orderItemList;
+	}
+	/**
+	* アレルギー情報の取得
+	 * @return アレルギー情報リスト
+	 */
+	public List<Allergy> getAllergies() {
+	    return allergies;
+	}
+	/**
+	 * アレルギー情報のセット
+	 * @param allergies アレルギー情報リスト
+	 */
+	public void setAllergies(List<Allergy> allergies) {
+	    this.allergies = allergies;
 	}
 
 }

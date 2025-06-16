@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
@@ -41,10 +42,17 @@ public class ClientItemShowController {
 	 * @return "index" トップ画面
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(Model model) {
+	public String index(Model model, Pageable pageable,OrderItem orderItemList) {
+		
+		    if (orderItemList!= null) {
+			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
+		    } else {
+			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+			    model.addAttribute("sortType",1);
+		    }
+		    return "index";
+		    }
 	
-		return "index";
-	}
 	/**
 	商品一覧表示処理
 	@param model Viewとのデータ受け渡し

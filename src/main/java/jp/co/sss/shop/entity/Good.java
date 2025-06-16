@@ -23,10 +23,10 @@ public class Good {
 //	private Item item; // アイテムID
 	
 	@Column
-	private Integer userId;
+	private String userId;
 	
 	@Column
-	private Integer itemId;
+	private String itemId;
 
 	public Integer getId() {
 		return id;
@@ -36,20 +36,31 @@ public class Good {
 		this.id = id;
 	}
 
-	public Integer getUserId() {
+	public String getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
-		this.userId = userId;
+	public void setUserId(String string) {
+		this.userId = string;
 	}
 
-	public Integer getItemId() {
+	public String getItemId() {
 		return itemId;
 	}
 
-	public void setItemId(Integer itemId) {
-		this.itemId = itemId;
+	public void setItemId(String string) {
+		this.itemId = string;
 	}
+	
+//	private Boolean GoodFlg;
+//
+//	public Boolean getGoodFlg() {
+//		return GoodFlg;
+//	}
+//
+//	public void setGoodFlg(Boolean goodFlg) {
+//		GoodFlg = goodFlg;
+//	}
+
 
 }

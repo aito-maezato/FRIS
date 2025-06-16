@@ -15,11 +15,18 @@
 			<div class="item_image_area">
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
-
-				<a th:href="@{/client/item/detail/like/} + ${item.id}" class="good_button" >
-					いいね
-				</a>
 				
+				<div th:if="${session.user != null}">
+					<!--未ログイン状態でない時（ログイン状態であるとき）、いいねボタンを出す-->
+					<form th:action="@{/client/item/detail/like/} + ${item.id}" method="post">
+						<input type="submit" value="いいね"  class="good_button">
+						<input type="hidden" name="userId" th:value="${session.user.id}">
+						<input type="hidden" name="itemId" th:value="${item.id}">
+					</form>
+				</div>
+				
+				<p th:text="${item.id}"></p>
+
 			</div>
 			<dl class="item_detail_list">
 				<dt>[[#{data.item.name}]]</dt>
@@ -44,7 +51,7 @@
 			<form th:action="@{/client/item/list/1}" method="post">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
-			
+
 		</div>
 	</div>
 

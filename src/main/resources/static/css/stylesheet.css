@@ -572,8 +572,8 @@ select {
 /*いいねボタン*/
 .good_button{
 	border-radius: 50%;/*角っこの丸み*/
-	width: 70px;
-    height: 70px;
+/*	width: 70px;*/
+/*    height: 70px;*/
 	background: rgb(255, 0, 128);/*背景色*/
 	color: #FFF;/*文字色*/
 	display: flex;/*並列にする*/

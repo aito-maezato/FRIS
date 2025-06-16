@@ -1,13 +1,19 @@
 package jp.co.sss.shop.controller.client.item;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
+import jp.co.sss.shop.util.Constant;
 
 /**
  * 商品管理 一覧表示機能(一般会員用)のコントローラクラス
@@ -39,6 +45,36 @@ public class ClientItemShowController {
 	
 		return "index";
 	}
-	
-	
+	/**
+	商品一覧表示処理
+	@param model Viewとのデータ受け渡し
+	@param pageable ページング情報（Springが自動設定）
+	@return 商品一覧画面テンプレート（client/item/list）
+		 */
+		@RequestMapping(path = "/client/item/list/1", method = { RequestMethod.GET, RequestMethod.POST })
+		public String showItemList(Model model, Pageable pageable) {
+			// 商品情報を検索
+			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable);
+			// ページ内の商品リストを取得
+			List<Item> itemList = itemsPage.getContent();
+			// View へ商品一覧とページ情報を渡す
+			model.addAttribute("items", itemList);
+			model.addAttribute("pages", itemsPage);
+			// 商品一覧画面を表示
+			return "client/item/list";  
+		}
+		
+		//売れ筋順処理
+		@RequestMapping(path = "/client/item/list/2", method = { RequestMethod.GET, RequestMethod.POST })
+		public String showItemListBysell(Model model, Pageable pageable) {
+			// 商品情報を検索
+			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable);
+			// ページ内の商品リストを取得
+			List<Item> itemList = itemsPage.getContent();
+			// View へ商品一覧とページ情報を渡す
+			model.addAttribute("items", itemList);
+			model.addAttribute("pages", itemsPage);
+			// 商品一覧画面を表示
+			return "client/item/list";  
+		}	
 }

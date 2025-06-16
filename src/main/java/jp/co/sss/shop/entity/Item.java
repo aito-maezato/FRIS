@@ -55,6 +55,7 @@ public class Item {
 	 */
 	@Column
 	private Integer stock;
+	
 
 	/**
 	 * 商品画像ファイル名
@@ -100,6 +101,8 @@ public class Item {
 	 */
 	public Item() {
 	}
+	
+
 
 	/**
 	 * コンストラクタ

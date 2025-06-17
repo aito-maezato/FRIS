@@ -3,8 +3,6 @@ package jp.co.sss.shop.controller.admin.order;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.OrderBean;
 import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.entity.Order;
@@ -102,7 +101,7 @@ public class AdminOrderShowController {
 	 * @return "admin/order/detail" 詳細画面　表示
 	 */
 	@RequestMapping(path = "/admin/order/detail/{id}")
-	public String showOrder(@PathVariable int id, Model model) {
+	public String showOrder(@PathVariable int id, Model model){
 
 		// 選択された注文情報に該当する情報を取得
 		Order order = orderRepository.getReferenceById(id);

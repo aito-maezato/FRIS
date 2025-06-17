@@ -2,9 +2,6 @@ package jp.co.sss.shop.controller.admin.category;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jp.co.sss.shop.bean.CategoryBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.form.CategoryForm;

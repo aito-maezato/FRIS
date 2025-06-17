@@ -31,16 +31,21 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * allergyIds に含まれるアレルゲンを含まない商品だけを返す
 	 */
 	@Query(value = """
-			SELECT * FROM items i
-			WHERE (:categoryId IS NULL OR i.category_id = :categoryId)
-			AND NOT EXISTS (
-			    SELECT 1 FROM item_allergy ia
-			    WHERE ia.item_id = i.id
-			    AND ia.allergy_id IN :allergyIds
-			)
-			AND i.delete_flag = 0
-			""", nativeQuery = true)
+	        SELECT * FROM items i
+	        WHERE (:categoryId IS NULL OR i.category_id = :categoryId)
+	        AND NOT EXISTS (
+	            SELECT 1 FROM item_allergies ia
+	            WHERE ia.item_id = i.id
+	            AND ia.allergy_id IN :allergyIds
+	        )
+	        AND i.delete_flag = 0
+	        """, nativeQuery = true)
 	List<Item> findItemsNotContainingAllergies(
-			@Param("categoryId") Long categoryId,
-			@Param("allergyIds") List<Long> allergyIds);
+	        @Param("categoryId") Long categoryId,
+	        @Param("allergyIds") List<Long> allergyIds);
+	
+	@Query("SELECT i FROM Item i INNER JOIN i.category c INNER JOIN i.orderItemList oil WHERE i.deleteFlag =:deleteFlag GROUP BY i ORDER BY SUM(oil.quantity) DESC")
+	Page<Item> findByDeleteFlagOrderByHotSellDescPage(
+	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
+
 }

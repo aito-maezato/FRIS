@@ -1,8 +1,5 @@
 package jp.co.sss.shop.entity;
 
-import java.sql.Date;
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -13,10 +10,10 @@ public class Allergy {
 	@Id
 	private Long id;
 	private String name;
-	@Column(name = "delete_flag")
-	private int deleteFlag;
-	@Column(name = "insert_date")
-	private Date insertDate;
+//	@Column(name = "delete_flag")
+//	private int deleteFlag;
+//	@Column(name = "insert_date")
+//	private Date insertDate;
 
 	// getter/setter...
 	public Long getId() {
@@ -35,19 +32,19 @@ public class Allergy {
 		this.name = name;
 	}
 
-	public int getDeleteFlag() {
-		return deleteFlag;
-	}
-
-	public void setDeleteFlag(int deleteFlag) {
-		this.deleteFlag = deleteFlag;
-	}
-
-	public Date getInsertDate() {
-		return insertDate;
-	}
-
-	public void setInsertDate(Date insertDate) {
-		this.insertDate = insertDate;
-	}
+//	public int getDeleteFlag() {
+//		return deleteFlag;
+//	}
+//
+//	public void setDeleteFlag(int deleteFlag) {
+//		this.deleteFlag = deleteFlag;
+//	}
+//
+//	public Date getInsertDate() {
+//		return insertDate;
+//	}
+//
+//	public void setInsertDate(Date insertDate) {
+//		this.insertDate = insertDate;
+//	}
 }

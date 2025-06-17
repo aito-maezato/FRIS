@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
 
@@ -28,13 +29,15 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+	
 
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
 	@Autowired
 	BeanTools beanTools;
-	
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -42,13 +45,15 @@ public class ClientItemShowController {
 	 * @return "index" トップ画面
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(Model model, Pageable pageable,OrderItem orderItemList) {
+	public String index(Model model, Pageable pageable) {
 		
-		    if (orderItemList!= null) {
-			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
-		    } else {
+		List<OrderItem>orderItemList = orderItemRepository.findAll();
+		    if (orderItemList.size() == 0) {
 			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 			    model.addAttribute("sortType",1);
+		    } else  {
+			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
+			    
 		    }
 		    return "index";
 		    }

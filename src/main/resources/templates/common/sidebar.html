@@ -13,14 +13,13 @@
 			<h2 th:class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
 				<!-- 商品一覧画面以外で表示 -->
-				<form th:if="${sortType == null}" th:action="@{/client/item/list/test/{allergyIds}}" method="get">
+				<form th:action="@{/client/item/list/test}" method="get">
+					<!-- カテゴリーは使わないなら削除またはコメントアウト -->
 					<select name="categoryId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">
+						<option th:value="#{constants.category.select.none.no}">選択なし</option>
+						<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
 						</option>
 					</select>
-					<!-- アレルギー除外チェック -->
 					<p>除外するアレルギー:</p>
 					<div th:each="allergy : ${allergyList}">
 						<label>
@@ -29,10 +28,9 @@
 							<span th:text="${allergy.name}">アレルギー名</span>
 						</label>
 					</div>
-					<!-- 検索ボタン -->
 					<input type="submit" value="検索" />
 				</form>
-				
+
 				<!-- 商品一覧画面上で表示 -->
 				<!--				<form th:unless="${sortType == null}" th:action="@{/client/item/list/test} + ${sortType}" method="get">-->
 				<!--					<select name="categoryId">-->

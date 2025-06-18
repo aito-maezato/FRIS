@@ -54,7 +54,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
     Page<Item> findByCategoryIdAndDeleteFlagOrderByInsertDateDesc(Integer categoryId, int deleteFlag, Pageable pageable);
 
     @Query("SELECT i FROM Item i INNER JOIN i.category c INNER JOIN i.orderItemList oil WHERE i.deleteFlag =:deleteFlag GROUP BY i ORDER BY SUM(oil.quantity) DESC")
-	Page<Item> findByDeleteFlagOrderByHotSellDescPage(
+	Page<Item> findByDeleteFlagOrderByHotSellDescPage1(
 	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
   
     //売れ筋カテゴリー検索
@@ -80,12 +80,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	
 	
-	/**
-	 * 商品IDと削除フラグを条件に検索（管理者機能で利用）
-	 * @param id 商品ID
-	 * @param pageable 削除フラグ
-	 * @return 商品エンティティ
-	 */
-	public Item findByIdAndDeleteFlag(Integer id, int pageable);
+
 
 }

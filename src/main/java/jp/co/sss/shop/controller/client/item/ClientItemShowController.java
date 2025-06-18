@@ -49,44 +49,7 @@ public class ClientItemShowController {
     }
 
    
-    /**
-     * カテゴリー検索・一覧表示処理
-     * 
-     * @param sortType  並び替えタイプ
-     * @param categoryId カテゴリID（オプション）
-     * @param model Viewとのデータ受け渡し
-     * @param pageable ページング情報
-     * @return 商品一覧画面テンプレート（client/item/list）
-     */
-    
-    //カテゴリー検索
-   /**@RequestMapping(path = "/client/item/list/{sortType}", method = { RequestMethod.GET, RequestMethod.POST })
-    public String itemList(@PathVariable("sortType") Integer sortType,
-                           @RequestParam(value = "categoryId", required = false) Integer categoryId,
-                           Model model, Pageable pageable) {
-
-    	if (categoryId != null && categoryId != 0) {
-            // カテゴリー検索処理
-            Page<Item> itemsPage = itemRepository.findByCategoryIdAndDeleteFlagOrderByInsertDateDesc(categoryId, Constant.NOT_DELETED, pageable);
-            List<Item> itemList = itemsPage.getContent();
-            //viewに検索結果を渡す
-            model.addAttribute("items", itemList);
-            model.addAttribute("pages", itemsPage);
-
-        }
-        
-        else {
-            // 商品一覧表示処理
-            Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDesc(Constant.NOT_DELETED, pageable);
-            List<Item> itemList = itemsPage.getContent();
-             //viewへ商品一覧とページ情報を渡す
-            model.addAttribute("items", itemList);
-            model.addAttribute("pages", itemsPage);
-        }
-        //商品一覧画面を表示
-        return "client/item/list";
-    }
-   */
+ 
     @RequestMapping(path = "/client/item/list/{sortType}", method = { RequestMethod.GET, RequestMethod.POST })
     public String itemList(@PathVariable("sortType") Integer sortType,
                            @RequestParam(value = "categoryId", required = false) Integer categoryId,
@@ -121,23 +84,7 @@ public class ClientItemShowController {
         return "client/item/list";
     }
 
-    
-   
-    //
-  //売れ筋順処理
-  	/**	@RequestMapping(path = "/client/item/list/2", method = { RequestMethod.GET, RequestMethod.POST })
-  		public String showItemListBysell(Model model, Pageable pageable) {
-  			// 商品情報を検索
-  			Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable);
-  			// ページ内の商品リストを取得
-  			List<Item> itemList = itemsPage.getContent();
-  			// View へ商品一覧とページ情報を渡す
-  			model.addAttribute("items", itemList);
-  			model.addAttribute("pages", itemsPage);
-  			// 商品一覧画面を表示
-  			return "client/item/list";  
-  		}	 	
-*/
+
   		
   		}
   		

@@ -168,4 +168,9 @@ public class Category {
 	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
 	}
+
+	public static List<Category> findAll() {
+		// TODO 自動生成されたメソッド・スタブ
+		return null;
+	}
 }

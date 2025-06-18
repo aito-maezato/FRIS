@@ -44,7 +44,7 @@ public class ClientItemGoodController {
 		
 		// 対象の商品情報を取得
 		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
-		
+
 		if (item == null) {
 			// 対象が無い場合、エラー
 			return "redirect:/syserror";
@@ -53,13 +53,14 @@ public class ClientItemGoodController {
 		//Itemエンティティの各フィールドの値をItemBeanにコピー
 		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 
+		
 		// 商品情報をViewへ渡す
 		model.addAttribute("item", itemBean);
 		//商品登録・変更・削除用のセッションスコープを初期化
 		session.removeAttribute("itemForm");
 		
 		//商品の口コミをリクエストスコープに保存
-		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
+//		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
 		
 		return "client/item/detail";
 	}

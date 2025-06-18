@@ -13,7 +13,7 @@
 			<h2 class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
 				<form th:action="@{/client/item/list/test}" method="get">
-					<!-- カテゴリー選択（使わない場合は削除可） -->
+					<!-- カテゴリー選択-->
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>

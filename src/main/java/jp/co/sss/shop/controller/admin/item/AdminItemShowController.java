@@ -2,8 +2,6 @@ package jp.co.sss.shop.controller.admin.item;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -63,7 +62,7 @@ public class AdminItemShowController {
 
 		// 商品情報を全件検索(新着順)
 		//表示画面でページングが必要なため、ページ情報付きの検索を行う
-		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable);
+		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDesc(Constant.NOT_DELETED,  pageable);
 
 		// エンティティ内のページ情報付きの検索結果からレコードの情報だけをJavaBeansに保存
 		List<Item> itemList = itemsPage.getContent();

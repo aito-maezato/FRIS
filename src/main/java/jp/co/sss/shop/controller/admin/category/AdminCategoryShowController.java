@@ -2,8 +2,6 @@ package jp.co.sss.shop.controller.admin.category;
 
 import java.util.List;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.CategoryBean;
 import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.repository.CategoryRepository;
@@ -37,7 +36,6 @@ public class AdminCategoryShowController {
 	 */
 	@Autowired
 	HttpSession session;
-
 	/**
 	 * 一覧表示処理
 	 *
@@ -90,7 +88,6 @@ public class AdminCategoryShowController {
 			// 対象が無い場合、エラー
 			return "redirect:/syserror";
 		}
-
 		CategoryBean categoryBean = new CategoryBean();
 		// Categoryエンティティの各フィールドの値をCategoryBeanにコピー
 		BeanUtils.copyProperties(category, categoryBean);
@@ -102,5 +99,4 @@ public class AdminCategoryShowController {
 
 		return "admin/category/detail";
 	}
-
 }

@@ -17,12 +17,7 @@ import jp.co.sss.shop.entity.Allergy;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.ItemRepository;
-<<<<<<< HEAD
-import jp.co.sss.shop.repository.ReviewsRepository;
-=======
 import jp.co.sss.shop.service.AllergyService;
-import jp.co.sss.shop.repository.OrderItemRepository;
->>>>>>> 1b6073adb5c002a32edb1913d356eaf19624b339
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.service.CategoryService;
 import jp.co.sss.shop.service.ItemService;
@@ -104,7 +99,7 @@ public class ClientItemShowController {
         // 商品一覧画面を表示
         return "client/item/list";
     }
->>>>>>> 1b6073adb5c002a32edb1913d356eaf19624b339
+
 	/**
 	商品一覧表示処理
 	@param model Viewとのデータ受け渡し

@@ -25,6 +25,18 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 
 	// カテゴリIDで商品を取得（必要がなければ使用しなくてもOK）
 	List<Item> findByCategoryId(Long categoryId);
+	
+	@Query("SELECT i FROM Item i INNER JOIN i.category c INNER JOIN i.orderItemList oil "
+   	     + "WHERE i.deleteFlag = :deleteFlag AND i.category.id = :categoryId "+ "GROUP BY i ORDER BY SUM(oil.quantity) DESC")
+   	Page<Item> findByDeleteFlagAndCategoryIdOrderByHotSellDescPage(
+   	        @Param("deleteFlag") int deleteFlag,
+   	        @Param("categoryId") int categoryId,
+   	        Pageable pageable);
+	
+	Page<Item> findByCategoryIdAndDeleteFlagOrderByInsertDateDesc(Integer categoryId, int deleteFlag, Pageable pageable);
+	
+	@Query("SELECT i FROM Item i WHERE i.deleteFlag = :deleteFlag ORDER BY i.insertDate DESC")
+    Page<Item> findByDeleteFlagOrderByInsertDateDesc(@Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
 
 	/**
 	 * アレルゲンを含まない商品を取得（カテゴリは使用しない）

@@ -574,6 +574,23 @@ select {
 	border-radius: 50%;/*角っこの丸み*/
 /*	width: 70px;*/
 /*    height: 70px;*/
+	background: rgb(255, 255, 255);/*背景色*/
+	color: rgb(255, 0, 128);/*文字色*/
+	display: flex;/*並列にする*/
+	/*上下中央寄せ*/
+	align-items: center;
+	justify-content: center;
+	/*右に寄せる*/
+	margin-left: 230px;
+}
+/*ボタンにカーソルを合わせた時のアクション*/
+.good_button:hover{
+	background: rgb(192, 192, 192);
+}
+.good_button_ON{
+	border-radius: 50%;/*角っこの丸み*/
+/*	width: 70px;*/
+/*    height: 70px;*/
 	background: rgb(255, 0, 128);/*背景色*/
 	color: #FFF;/*文字色*/
 	display: flex;/*並列にする*/
@@ -584,7 +601,7 @@ select {
 	margin-left: 230px;
 }
 /*ボタンにカーソルを合わせた時のアクション*/
-.good_button:hover{
+.good_button_ON:hover{
 	background: rgb(164, 0, 82);
 }
 

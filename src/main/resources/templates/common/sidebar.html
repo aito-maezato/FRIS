@@ -23,7 +23,13 @@
 					<option th:value="#{constants.category.select.none.no}" th:text="#{constants.category.select.none}"></option>
 					<option th:each="category: ${categories}"
 						th:value="${category.id}" th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
-				</select> <input type="submit" th:value="#{select}" />
+				</select> <input type="submit" th:value="#{select}" />				
+			</form>
+			<form th:action="@{/client/item/list/like}">
+				<div th:if="${session.user != null}">
+					<input type="submit" value="いいね一覧">	
+				</div>
+				
 			</form>
 		</div>
 	</div>

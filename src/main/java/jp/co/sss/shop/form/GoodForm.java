@@ -25,4 +25,8 @@ public class GoodForm {
 	public void setItemId(String itemId) {
 		this.itemId = itemId;
 	}
+	
+	//private Boolean deleteFlg;
+
+	
 }

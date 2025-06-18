@@ -62,7 +62,7 @@ public class AdminItemShowController {
 
 		// 商品情報を全件検索(新着順)
 		//表示画面でページングが必要なため、ページ情報付きの検索を行う
-		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDesc(Constant.NOT_DELETED,  pageable);
+		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED,  pageable);
 
 		// エンティティ内のページ情報付きの検索結果からレコードの情報だけをJavaBeansに保存
 		List<Item> itemList = itemsPage.getContent();

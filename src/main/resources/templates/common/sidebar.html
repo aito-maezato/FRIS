@@ -12,6 +12,7 @@
 		<div class="search_area" th:if="${session.user == null}">
 			<h2 class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
+
 				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}">
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
@@ -29,6 +30,7 @@
 							th:selected="${category.id} == ${categoryId}"></option>
 					</select><input type="submit" th:value="#{select}">
 				</form>
+
 				<form th:action="@{/client/item/list/test}" method="get">
 					<!-- アレルギー除外チェック -->
 					<p>除外するアレルギー:</p>
@@ -48,14 +50,26 @@
 		<div class="search_area" th:if="${session.user != null and session.user.authority == 2}">
 			<h2 class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
-				<form th:action="@{/client/item/list/test}" method="get">
+
+				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}">
 					<!-- カテゴリー選択 -->
 					<select name="categoryId">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
 						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
 							th:selected="${category.id} == ${categoryId}"></option>
-					</select>
+					</select><input type="submit" th:value="#{select}">
+				</form>
+				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}">
+					<!-- カテゴリー選択-->
+					<select name="categoryId">
+						<option th:value="#{constants.category.select.none.no}"
+							th:text="#{constants.category.select.none}"></option>
+						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
+							th:selected="${category.id} == ${categoryId}"></option>
+					</select><input type="submit" th:value="#{select}">
+				</form>
+				<form th:action="@{/client/item/list/test}" method="get">
 					<!-- アレルギー除外チェック -->
 					<p>除外するアレルギー:</p>
 					<div th:each="allergy : ${allergyList}">

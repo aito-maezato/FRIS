@@ -132,7 +132,7 @@ header {
 	margin: 0;
 	padding: 5px 8px;
 	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
+/*	text-shadow: 1px 1px 1px #12526d;*/
 }
 
 
@@ -360,7 +360,7 @@ aside.admin_menu {
  * footer要素は画面、もしくはページの最下部に表示されるようになります。
  */
 footer {
-	background-color: #87ceeb;
+	background-color: darkorange;
 	text-align: center;
 	position: absolute;
 	bottom: 0;

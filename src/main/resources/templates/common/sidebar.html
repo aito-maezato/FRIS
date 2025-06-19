@@ -7,114 +7,113 @@
 
 <body>
 	<aside th:fragment="layout-sidebar"
-		th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}">
+		th:class="${session.user == null or session.user.authority == 2} ? 'search' : 'admin_menu'">
 		<!-- 検索メニュー（未会員用） -->
 		<div class="search_area" th:if="${session.user == null}">
-			<h2 class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
-
 				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}">
-					<select name="categoryId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">
-						</option>
-					</select> <input type="submit" th:value="#{select}" />
+					<div class="search_block">
+						<h3>カテゴリー検索</h3>
+						<select name="categoryId">
+							<option th:value="#{constants.category.select.none.no}"
+								th:text="#{constants.category.select.none}"></option>
+							<option th:each="category : ${categories}" th:value="${category.id}"
+								th:text="${category.name}"></option>
+						</select>
+						<input type="submit" th:value="#{select}" />
+					</div>
 				</form>
 				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}">
-					<!-- カテゴリー選択-->
-					<select name="categoryId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
-							th:selected="${category.id} == ${categoryId}"></option>
-					</select><input type="submit" th:value="#{select}">
-				</form>
-
-				<form th:action="@{/client/item/list/test}" method="get">
-					<!-- アレルギー除外チェック -->
-					<p>除外するアレルギー:</p>
-					<div th:each="allergy : ${allergyList}">
-						<label>
-							<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
-								th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />
-							<span th:text="${allergy.name}"></span>
-						</label>
+					<div class="search_block">
+						<h3>カテゴリー検索</h3>
+						<select name="categoryId">
+							<option th:value="#{constants.category.select.none.no}"
+								th:text="#{constants.category.select.none}"></option>
+							<option th:each="category : ${categories}" th:value="${category.id}"
+								th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
+						</select>
+						<input type="submit" th:value="#{select}" />
 					</div>
-					<!-- 検索ボタン -->
-					<input type="submit" th:value="#{select}" />
+				</form>
+				<form th:action="@{/client/item/list/test}" method="get">
+					<div class="search_block">
+						<h3>アレルギー検索</h3>
+						<p>除外するアレルギー:</p>
+						<div th:each="allergy : ${allergyList}">
+							<label>
+								<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
+									th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />
+								<span th:text="${allergy.name}"></span>
+							</label>
+						</div>
+						<input type="submit" th:value="#{select}" />
+					</div>
 				</form>
 			</div>
-			<form th:action="@{/client/item/list/like}">
-				<div th:if="${session.user != null}">
-					<input type="submit" value="いいね一覧">	
-				</div>
-				
-			</form>
 		</div>
 		<!-- 検索メニュー（一般会員用） -->
 		<div class="search_area" th:if="${session.user != null and session.user.authority == 2}">
-			<h2 class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
-
 				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}">
-					<!-- カテゴリー選択 -->
-					<select name="categoryId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
-							th:selected="${category.id} == ${categoryId}"></option>
-					</select><input type="submit" th:value="#{select}">
+					<div class="search_block">
+						<h3>カテゴリー検索</h3>
+						<select name="categoryId">
+							<option th:value="#{constants.category.select.none.no}"
+								th:text="#{constants.category.select.none}"></option>
+							<option th:each="category : ${categories}" th:value="${category.id}"
+								th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
+						</select>
+						<input type="submit" th:value="#{select}" />
+					</div>
 				</form>
+
 				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}">
-					<!-- カテゴリー選択-->
-					<select name="categoryId">
-						<option th:value="#{constants.category.select.none.no}"
-							th:text="#{constants.category.select.none}"></option>
-						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
-							th:selected="${category.id} == ${categoryId}"></option>
-					</select><input type="submit" th:value="#{select}">
+					<div class="search_block">
+						<h3>カテゴリー検索</h3>
+						<select name="categoryId">
+							<option th:value="#{constants.category.select.none.no}"
+								th:text="#{constants.category.select.none}"></option>
+							<option th:each="category : ${categories}" th:value="${category.id}"
+								th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
+						</select>
+						<input type="submit" th:value="#{select}" />
+					</div>
 				</form>
 				<form th:action="@{/client/item/list/test}" method="get">
-					<!-- アレルギー除外チェック -->
-					<p>除外するアレルギー:</p>
-					<div th:each="allergy : ${allergyList}">
-						<label>
-							<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
-								th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />
-							<span th:text="${allergy.name}"></span>
-						</label>
+					<div class="search_block">
+						<h3>アレルギー検索</h3>
+						<p>除外するアレルギー:</p>
+						<div th:each="allergy : ${allergyList}">
+							<label>
+								<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
+									th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />
+								<span th:text="${allergy.name}"></span>
+							</label>
+						</div>
+						<input type="submit" th:value="#{select}" />
 					</div>
-					<!-- 検索ボタン -->
-					<input type="submit" th:value="#{select}" />
 				</form>
 				<form th:action="@{/client/item/list/like}">
-				<div th:if="${session.user != null}">
-					<input type="submit" value="いいね一覧">	
-				</div>
-				
-			</form>
+					<div class="search_block">
+						<h3>いいね一覧表示</h3>
+						<div th:if="${session.user != null}">
+							<input type="submit" value="いいね一覧" />
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-
-		<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
+		<!-- メニュー(運用管理者、及びシステム管理者用) -->
 		<div th:if="${session.user != null and session.user.authority != 2}">
-
 			<h2 th:class="title" th:text="#{admin.menu}"></h2>
 			<ul class="menu">
-				<li>
-					<a th:href="@{/admin/user/list}" th:class="display_list" th:text="#{admin.menu.user.list}"></a>
-				</li>
-				<li th:if="${session.user.authority == 1}">
-					<a th:href="@{/admin/order/list}" th:class="display_list" th:text="#{admin.menu.order.list}"></a>
-				</li>
-				<li th:if="${session.user.authority == 1}">
-					<a th:href="@{/admin/item/list}" th:class="display_list" th:text="#{admin.menu.item.list}"></a>
-				</li>
-				<li th:if="${session.user.authority == 1}">
-					<a th:href="@{/admin/category/list}" th:class="display_list"
-						th:text="#{admin.menu.category.list}"></a>
-				</li>
+				<li><a th:href="@{/admin/user/list}" th:class="display_list" th:text="#{admin.menu.user.list}"></a></li>
+				<li th:if="${session.user.authority == 1}"><a th:href="@{/admin/order/list}" th:class="display_list"
+						th:text="#{admin.menu.order.list}"></a></li>
+				<li th:if="${session.user.authority == 1}"><a th:href="@{/admin/item/list}" th:class="display_list"
+						th:text="#{admin.menu.item.list}"></a></li>
+				<li th:if="${session.user.authority == 1}"><a th:href="@{/admin/category/list}" th:class="display_list"
+						th:text="#{admin.menu.category.list}"></a></li>
 			</ul>
 		</div>
 	</aside>

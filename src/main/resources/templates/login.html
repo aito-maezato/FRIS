@@ -1,52 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title th:text="#{login}+' | '+ #{shop.title}"> </title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title th:text="#{login} + ' | ' + #{shop.title}">ログイン | FRIS弁当ショップ</title>
+    <link rel="stylesheet" th:href="@{/css/styleLogin.css}" />
 </head>
-
 <body class="user_login">
-<div class="user_container">
-	<h2 th:class="page_title" th:text="#{login}"></h2>
-	<div class="login_content">
-	<p th:class="description" th:text="#{msg.login.input}"></p>
-	<div class="login_form_area">
-		<form th:action="@{/login}" method="post" class="login_form" th:object="${loginForm}">
-			<th:block th:if="${#fields.hasErrors()}">
-			<div class="error_list">
-				<ul>
-					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
-				</ul>
-				<br />
-			</div>
-			</th:block>
-			<table>
-				<tbody>
-					<tr>
-						<th th:class="label" th:text="#{loginForm.email}"></th>
-						<td class="input"><input type="text" th:field="*{email}" /></td>
-					</tr>
-					<tr>
-						<th th:class="label" th:text="#{loginForm.password}"></th>
-						<td class="input"><input type="password" th:field="*{password}" /></td>
-					</tr>
-					<tr>
-						<th class="label"></th>
-						<td class="input"><input type="submit" th:value="#{login}" /></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
-	</div>
-	</div>
-</div>
-	<p class="complete_link">
-		<a th:href="@{/}" th:text="#{msg.back.to.top}"></a>
-	</p>
-
+    <!-- ヘッダー -->
+    <header class="header">
+        <h1 class="site-title">FRIS弁当ショップ</h1>
+        <nav class="nav">
+            <a href="/shared_shop/client/user/regist/input/init" class="regist-link">新規会員登録</a>
+        </nav>
+    </header>
+    <!-- ログインフォーム -->
+    <div class="user_container">
+        <h2 class="page_title" th:text="#{login}">ログイン</h2>
+        <p class="description" th:text="#{msg.login.input}">ログイン情報を入力してください</p>
+        <div class="login_form_area">
+            <form th:action="@{/login}" method="post" class="login_form" th:object="${loginForm}">
+                <th:block th:if="${#fields.hasErrors()}">
+                    <div class="error_list">
+                        <ul>
+                            <li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+                        </ul>
+                    </div>
+                </th:block>
+                <table>
+                    <tr>
+                        <th class="label" th:text="#{loginForm.email}">メールアドレス</th>
+                        <td class="input"><input type="text" th:field="*{email}" /></td>
+                    </tr>
+                    <tr>
+                        <th class="label" th:text="#{loginForm.password}">パスワード</th>
+                        <td class="input"><input type="password" th:field="*{password}" /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="submit"><input type="submit" th:value="#{login}" value="ログイン" /></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <p class="complete_link">
+            <a th:href="@{/}" th:text="#{msg.back.to.top}">トップに戻る</a>
+        </p>
+    </div>
 </body>
-
 </html>

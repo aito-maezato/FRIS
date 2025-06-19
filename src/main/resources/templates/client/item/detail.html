@@ -15,6 +15,29 @@
 			<div class="item_image_area">
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
+				
+				<div th:if="${session.user != null}">
+					<div>
+						<!--未ログイン状態でない時（ログイン状態であるとき）、いいねボタンを出す-->
+						<form th:action="@{/client/item/detail/like/} + ${item.id}" method="post">
+							<div th:if="${good == null}">
+								<input type="submit" value="いいね"  class="good_button">
+							</div>
+							<div th:if="${good != null}">
+								<div th:switch="${good.deleteFlg}">
+									<input th:case=0 type="submit" value="いいね"  class="good_button_ON">								
+									<input th:case=1 type="submit" value="いいね"  class="good_button">								
+								</div>
+							</div>
+							<input type="hidden" name="userId" th:value="${session.user.id}">
+							<input type="hidden" name="itemId" th:value="${item.id}">
+						</form>
+					</div>
+				</div>
+<!--				<span th:text="${good.deleteFlg} + デリートフラグ"></span><br>-->
+<!--				<span th:text="${session.user.id} + ：ユーザーID"></span><br>-->
+<!--				<span th:text="${item.id}+ ：アイテムID"></span>-->
+				
 
 			</div>
 			<dl class="item_detail_list">

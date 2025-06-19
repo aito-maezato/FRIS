@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.OrderBean;
 import jp.co.sss.shop.bean.OrderItemBean;
+import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
-import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -68,34 +68,28 @@ public class ClientOrderShowController {
 	 * @return "client/order/list" 注文情報 一覧画面へ
 	 */
 	@RequestMapping(path = "/client/order/list", method = { RequestMethod.GET, RequestMethod.POST })
-	public String showOrderList(Model model, Pageable pageable, UserForm form) {
-
-		// すべての注文情報を取得(注文日降順)
-		//表示画面でページングが必要なため、ページ情報付きの検索を行う
-		Page<Order> orderList = orderRepository.findAllOrderByInsertdateDescIdDesc(pageable);
-
-		// 注文情報リストを生成
-		List<OrderBean> orderBeanList = new ArrayList<OrderBean>();
-		for (Order order : orderList) {
-			// BeanToolsクラスのcopyEntityToOrderBeanメソッドを使用して表示する注文情報を生成
+	public String showOrderList(Model model, Pageable pageable) {
+		// セッションからログインユーザー情報を取得
+		UserBean loginUser = (UserBean) session.getAttribute("user");
+		// 未ログインならログインページへリダイレクト
+		if (loginUser == null) {
+			return "redirect:/login";
+		}
+		// ユーザーIDで注文履歴を取得
+		Page<Order> orderPage = orderRepository.findByUserIdOrderByInsertDateDescIdDesc(loginUser.getId(), pageable);
+		// 表示用の OrderBean リストを作成
+		List<OrderBean> orderBeanList = new ArrayList<>();
+		for (Order order : orderPage.getContent()) {
 			OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
-			//orderレコードから紐づくOrderItemのListを取り出す
 			List<OrderItem> orderItemList = order.getOrderItemsList();
-			//PriceCalcクラスのorderItemPriceTotalメソッドを使用して合計金額を算出
 			int total = priceCalc.orderItemPriceTotal(orderItemList);
-
-			//合計金額のセット
 			orderBean.setTotal(total);
-
 			orderBeanList.add(orderBean);
 		}
-
-		// 注文情報リストをViewへ渡す
-		model.addAttribute("pages", orderList);
+		// View へ渡す
+		model.addAttribute("pages", orderPage);
 		model.addAttribute("orders", orderBeanList);
-
 		return "client/order/list";
-
 	}
 
 	/**
@@ -127,6 +121,5 @@ public class ClientOrderShowController {
 
 		return "client/order/detail";
 	}
-
 
 }

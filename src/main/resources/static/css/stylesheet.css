@@ -577,6 +577,7 @@ select {
 	background: rgb(255, 255, 255);/*背景色*/
 	color: rgb(255, 0, 128);/*文字色*/
 	display: flex;/*並列にする*/
+	transition: .3s;/* なめらか変化 */
 	/*上下中央寄せ*/
 	align-items: center;
 	justify-content: center;
@@ -594,6 +595,7 @@ select {
 	background: rgb(255, 0, 128);/*背景色*/
 	color: #FFF;/*文字色*/
 	display: flex;/*並列にする*/
+	transition: .3s;/* なめらか変化 */
 	/*上下中央寄せ*/
 	align-items: center;
 	justify-content: center;

@@ -88,6 +88,12 @@
 					<!-- 検索ボタン -->
 					<input type="submit" th:value="#{select}" />
 				</form>
+				<form th:action="@{/client/item/list/like}">
+				<div th:if="${session.user != null}">
+					<input type="submit" value="いいね一覧">	
+				</div>
+				
+			</form>
 			</div>
 		</div>
 

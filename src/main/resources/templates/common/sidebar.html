@@ -45,6 +45,12 @@
 					<input type="submit" th:value="#{select}" />
 				</form>
 			</div>
+			<form th:action="@{/client/item/list/like}">
+				<div th:if="${session.user != null}">
+					<input type="submit" value="いいね一覧">	
+				</div>
+				
+			</form>
 		</div>
 		<!-- 検索メニュー（一般会員用） -->
 		<div class="search_area" th:if="${session.user != null and session.user.authority == 2}">
@@ -82,6 +88,12 @@
 					<!-- 検索ボタン -->
 					<input type="submit" th:value="#{select}" />
 				</form>
+				<form th:action="@{/client/item/list/like}">
+				<div th:if="${session.user != null}">
+					<input type="submit" value="いいね一覧">	
+				</div>
+				
+			</form>
 			</div>
 		</div>
 

@@ -80,7 +80,7 @@ public class ClientItemGoodController {
 		// stringに変換
 		
 		//商品の口コミをリクエストスコープに保存
-//		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
+		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
 		
 		// ItemIdに一致する行を探して保存する
 //		model.addAttribute("good",goodRepository.findByItemId(ItemId));

@@ -51,7 +51,7 @@ public class ClientItemReviewController {
 		//口コミidを表示
 		//System.err.println(request.getParameter("hidden-review-id"));
 		//口コミを削除
-		//repository.deleteById(Integer.parseInt(request.getParameter("hidden-review-id")));
+//		repository.deleteById(Integer.parseInt(request.getParameter("hidden-review-id")));
 		
 		//口コミを論理削除
 		Reviews review = repository.getReferenceById(Integer.parseInt(request.getParameter("hidden-review-id")));

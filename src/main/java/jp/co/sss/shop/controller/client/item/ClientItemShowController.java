@@ -60,11 +60,13 @@ public class ClientItemShowController {
 	public String index(Model model, Pageable pageable,OrderItem orderItemList) {
 		
 		    if (orderItemList!= null) {
-			    model.addAttribute("topItems", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
+			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
 		    } else {
 			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 			    model.addAttribute("sortType",1);
 		    }
+		    List<Allergy> allergies = allergyService.findAll();
+		    model.addAttribute("allergyList", allergies);
 		    return "index";
 		    }
 	
@@ -118,7 +120,7 @@ public class ClientItemShowController {
 //		// 商品一覧画面を表示
 //		return "redirect:/client/item/list/test";
 //	}
-//
+
 //	//売れ筋順処理
 //	@RequestMapping(path = "/client/item/list/2", method = { RequestMethod.GET, RequestMethod.POST })
 //	public String showItemListBysell(Model model, Pageable pageable) {
@@ -132,7 +134,7 @@ public class ClientItemShowController {
 //		// 商品一覧画面を表示
 //		return "redirect:/client/item/list/test";
 //	}
-//
+
 //	//	/**
 //	//	 * 商品一覧表示（アレルギー除外対応）
 //	//	 *

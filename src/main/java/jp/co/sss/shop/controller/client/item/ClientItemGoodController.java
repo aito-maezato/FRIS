@@ -60,7 +60,7 @@ public class ClientItemGoodController {
 		session.removeAttribute("itemForm");
 		
 		//商品の口コミをリクエストスコープに保存
-//		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
+		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
 		
 		return "client/item/detail";
 	}

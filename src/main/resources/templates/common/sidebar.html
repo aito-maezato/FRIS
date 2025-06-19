@@ -34,7 +34,7 @@
 				<form th:action="@{/client/item/list/test}" method="get">
 					<!-- アレルギー除外チェック -->
 					<p>除外するアレルギー:</p>
-					<div th:each="allergy : ${allergyList}">
+					<div th:each="allergy : ${session.allergyList}">
 						<label>
 							<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
 								th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />
@@ -78,7 +78,7 @@
 				<form th:action="@{/client/item/list/test}" method="get">
 					<!-- アレルギー除外チェック -->
 					<p>除外するアレルギー:</p>
-					<div th:each="allergy : ${allergyList}">
+					<div th:each="allergy : ${session.allergyList}">
 						<label>
 							<input type="checkbox" name="allergyIds" th:value="${allergy.id}"
 								th:checked="${selectedAllergies != null and #lists.contains(selectedAllergies, allergy.id)}" />

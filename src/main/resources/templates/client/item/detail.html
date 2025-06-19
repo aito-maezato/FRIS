@@ -5,6 +5,7 @@
 <head>
 	<title th:text="#{item}+#{title.detail}+' | '+ #{shop.title}"> </title>
 	<meta charset="UTF-8" />
+	
 </head>
 
 <body class="user">
@@ -16,24 +17,7 @@
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
 				
-				<div th:if="${session.user != null}">
-					<div>
-						<!--未ログイン状態でない時（ログイン状態であるとき）、いいねボタンを出す-->
-						<form th:action="@{/client/item/detail/like/} + ${item.id}" method="post">
-							<div th:if="${good == null}">
-								<input type="submit" value="いいね"  class="good_button">
-							</div>
-							<div th:if="${good != null}">
-								<div th:switch="${good.deleteFlg}">
-									<input th:case=0 type="submit" value="いいね"  class="good_button_ON">								
-									<input th:case=1 type="submit" value="いいね"  class="good_button">								
-								</div>
-							</div>
-							<input type="hidden" name="userId" th:value="${session.user.id}">
-							<input type="hidden" name="itemId" th:value="${item.id}">
-						</form>
-					</div>
-				</div>
+				
 <!--				<span th:text="${good.deleteFlg} + デリートフラグ"></span><br>-->
 <!--				<span th:text="${session.user.id} + ：ユーザーID"></span><br>-->
 <!--				<span th:text="${item.id}+ ：アイテムID"></span>-->
@@ -41,10 +25,10 @@
 
 			</div>
 			<dl class="item_detail_list">
-				<dt>[[#{data.item.name}]]</dt>
-				<dd th:text="*{name}"></dd>
+				<dt >[[#{data.item.name}]]</dt>
+				<dd th:text="*{name}" th:class="item_name"></dd>
 				<dt>[[#{data.item.price}]]</dt>
-				<dd th:text="*{price}"></dd>
+				<dd th:text="*{price} + 円"></dd>
 				<dt>[[#{data.item.stock}]]</dt>
 				<dd th:if="*{stock > 5}" th:text="#{data.in.stock}"></dd>
 				<dd th:if="*{stock >= 1 and 5 >= stock }" th:text="*{stock}"></dd>
@@ -52,7 +36,7 @@
 				<dt>[[#{data.category}]]</dt>
 				<dd th:text="*{categoryName}"></dd>
 				<dt>[[#{data.description}]]</dt>
-				<dd th:text="*{description}"></dd>
+				<dd th:text="*{description}" th:class="item_dsp"></dd>
 			</dl>
 		</div>
 		<div class="detail_button_area">
@@ -60,34 +44,53 @@
 				<input type="hidden" th:field="*{id}" />
 				<input type="submit" value="買い物かごに入れる" class="send_button" />
 			</form>
+			
 			<form th:action="@{/client/item/list/1}" method="post">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
+			<div th:if="${session.user != null}">
+				<!--未ログイン状態でない時（ログイン状態であるとき）、いいねボタンを出す-->
+				<form th:action="@{/client/item/detail/like/} + ${item.id}" method="post">
+				<div th:if="${good == null}">
+					<input type="submit" value="いいね"  class="good_button">
+					</div>
+					<div th:if="${good != null}">
+						<div th:switch="${good.deleteFlg}">
+							<input th:case=0 type="submit" value="いいね済み"  class="good_button_ON">								
+							<input th:case=1 type="submit" value="いいね"  class="good_button">								
+						</div>
+					</div>
+					<input type="hidden" name="userId" th:value="${session.user.id}">
+					<input type="hidden" name="itemId" th:value="${item.id}">
+				</form>
+			</div>
+			
 		</div>
 		<div th:if="${session.user != null}">
 			<h1>口コミを投稿！！</h1>
 			<form th:action="@{/client/item/detail/Reviews}" method="post" class="user_info_form">
-				<textarea name="reviews" cols="50" rows="10" maxlength="20"></textarea><br>
+				<textarea name="reviews" cols="50" rows="10" maxlength="20" class="kutikomi_text"></textarea><br>
 				<input type="submit" value="投稿" class="post_button">
 				<input type="hidden" name="userId" th:value="${session.user.id}">
 				<input type="hidden" name="itemId" th:value="*{id}">
 			</form>
 		</div>
 		<div>
-			<h1>まわりの口コミーーーーーーーーーーーーーーーーー</h1>
-			<table>
+			<h1>ーーーーーーーーまわりの口コミーーーーーーーー</h1>
+			<table th:class="kutikomi_table">
 				<!--/* 口コミ一覧 */-->
 				<tr th:if="${kuchikomi.deleteFlag == 0}" th:each="kuchikomi: ${reviews}">
 					<!--口コミを登録した人の名前を表示<td th:text="${kuchikomi.userId}"></td>-->
 					<!--論理削除されていないものを表示-->
-					<td th:text="${kuchikomi.Reviews}"></td>
-					<!--自分が書いた口コミは削除可能にする-->
-					<td th:if="${session.user != null && kuchikomi.userId == session.user.id}">
-						<form th:action="@{/client/item/detail/Reviews/delete_check_flag}">
-							<input type="submit" value="削除" class="delete_flag_change">
-							<input type="hidden" name="hidden-item-id" th:value="*{id}">
-							<input type="hidden" name="hidden-review-id" th:value="${kuchikomi.id}">
-						</form>
+					<td th:text="${kuchikomi.Reviews}" th:class="kutikomi_naiyou">
+						<!--自分が書いた口コミは削除可能にする-->
+						<td th:if="${session.user != null && kuchikomi.userId == session.user.id}" >
+							<form th:action="@{/client/item/detail/Reviews/delete_check_flag}" >
+								<input type="submit" value="削除" class="delete_flag_change">
+								<input type="hidden" name="hidden-item-id" th:value="*{id}">
+								<input type="hidden" name="hidden-review-id" th:value="${kuchikomi.id}">
+							</form>
+						</td>
 					</td>
 				</tr>
 			</table>

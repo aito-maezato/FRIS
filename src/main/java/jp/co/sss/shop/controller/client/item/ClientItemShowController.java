@@ -65,6 +65,15 @@ public class ClientItemShowController {
 			// 商品一覧画面を表示
 			return "client/item/list";  
 		}
+		
+		@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
+		public String listByCategory(@PathVariable String sortType,
+		@RequestParam(name = "categoryId", required = false) Integer categoryId,Model model) {
+	           
+		     return "client/item/list";
+		     
+		}
+		
 	}
 	
 

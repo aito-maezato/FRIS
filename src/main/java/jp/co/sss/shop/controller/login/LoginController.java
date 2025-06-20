@@ -40,7 +40,7 @@ public class LoginController {
 	 * @param form ログインフォーム
 	 * @return "login" ログイン画面表示
 	 */
-	/*@RequestMapping(path = "/login", method = RequestMethod.GET)
+	@RequestMapping(path = "/login", method = RequestMethod.GET)
 	public String login(@ModelAttribute LoginForm form) {
 
 		// セッション情報を無効にする

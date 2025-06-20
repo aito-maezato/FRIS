@@ -111,6 +111,14 @@ p {
 [type=submit].delete:disabled {
   background: #ccc;
 }
+[type=submit].delete:hover {
+	transition: .2s;
+  background: rgb(137, 22, 22);
+}
+[type=submit].post:hover {
+	transition: .2s;
+  background: rgb(128, 128, 128);
+}
 /* ---- ボタン(商品個数指定) ---- */
 [type=button] {
 	width: 80px;
@@ -336,13 +344,16 @@ li.error_msg  {
 	display: block;
 	width: 100%;
 	margin-top:30px;
-	
+	display: flex;
+	padding: 12px 0;
 }
 .detail_button_area form {
 	 /* display: inline-block; */
-	width:25%;
-	/* margin-left:5%; */
-	text-align: center;
+/*	width:25%;*/
+	margin-left:5%; 
+/*	text-align: center;*/
+	display: flex;
+	align-items: center;
 }
 .detail_button_area form:first-of-type{
 	text-align: right;
@@ -371,12 +382,14 @@ li.error_msg  {
 	max-width: 300px;	
 	height: auto;
 	max-height: 300px;
+	padding-top: 20%;
 }
 .item_input_area img{
 	width: 100%;
 	max-width: 300px;	
 	height: auto;
 	max-height: 300px;
+	padding-top: 20%;
 }
 .item_detail_list {
 	width: 50%;

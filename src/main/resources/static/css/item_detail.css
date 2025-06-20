@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+.good_button{
+	border-radius	: 50%;/*角っこの丸み*/
+    height			: 110px;
+	background		: rgb(255, 255, 255);/*背景色*/
+	color			: rgb(255, 0, 128);/*文字色*/
+	display			: flex;/*並列にする*/
+	transition		: .2s;/* なめらか変化 */
+	/*上下中央寄せ*/
+	align-items		: center;
+	justify-content	: center;
+/*	position: absolute;*/
+	/*ボタンの左側を空ける*/
+	margin-left		: 20%;
+}
+/*ボタンにカーソルを合わせた時のアクション*/
+.good_button:hover{
+	background		: rgb(244, 206, 241);
+}
+.good_button_ON{
+	border-radius	: 50%;/*角っこの丸み*/
+	height			: 110px;
+	background		: rgb(255, 0, 128);/*背景色*/
+	color			: #FFF;/*文字色*/
+	display			: flex;/*並列にする*/
+	transition		: .2s;/* なめらか変化 */
+	/*上下中央寄せ*/
+	align-items		: center;
+	justify-content	: center;
+	/*ボタンの左側を空ける*/
+	margin-left		: 20%;
+}
+/*ボタンにカーソルを合わせた時のアクション*/
+.good_button_ON:hover{
+	background: rgb(164, 0, 82);
+}
+
+
+
+
+.send_button{
+	
+}
+.send_button:hover{
+	transition: .2s;/* なめらか変化 */
+	background-color:rgb(170, 226, 251);
+}
+
+.back_button{
+	color: crimson;
+}
+
+.back_button:hover{
+	transition: .2s;/* なめらか変化 */
+	background-color: rgb(142, 142, 142)
+	
+}
+
+.post_button{
+	transition: .2s;/* なめらか変化 */
+}
+.post_button:hover{
+	color: aliceblue;
+	background-color: #60a531;
+	background:linear-gradient(#60a531, pink) ;
+}
+.kutikomi_text{
+	margin: 0.5rem 0;
+	resize: none;
+	height: 65px;
+	width: 65%;
+	display: block;
+	border: solid 6px rgb(255, 140, 0);/*線*/
+    border-radius: 10px;/*角の丸み*/
+}
+.delete_flag_change{
+	color:rgb(251, 53, 53);
+	transition: .2s;/* なめらか変化 */
+	font-size: 120%;
+}
+.delete_flag_change:hover{
+	color:rgb(255, 255, 255);
+	background-color: rgb(251, 53, 53);
+}
+.kutikomi_naiyou{
+	font-size: 120%;
+	background-color: rgb(239, 239, 239);
+	padding: 35px 70px;
+	border: 8px outset rgb(255, 171, 87);
+	border-radius: 5px;
+	text-align: center;
+
+}
+.kutikomi_table{
+	padding: 10px;
+	border-top: double 6px rgb(128, 128, 128);/*線*/
+	border-collapse: separate;
+}
+.test_area{
+	  display: flex;
+}
+
+/*商品詳細*/
+.item_detail_list dt {
+	width: 20%;
+	border-bottom: 2px solid rgb(64, 0, 64);
+	/*グラデーションをかける*/
+	border-image: linear-gradient(to right,  rgb(0, 0, 79), rgb(255, 255, 255))1;
+	padding-top: 5%;
+}
+
+.item_detail_list dd {
+	width: 70%;
+	border-bottom: 3px solid;
+	border-image: linear-gradient(to right,  rgb(255, 140, 0), rgb(255, 255, 255))1;
+}
+
+/*商品名*/
+.item_name{
+	font-size: 30px;
+}
+.item_price{
+	font-size: 30px;
+}
+/*商品説明*/
+.item_dsp{
+	color: rgb(61, 61, 61);
+}
+.list_table.basket{
+	border: 3px solid rgb(255, 207, 149);
+	margin: 5%;
+}

@@ -129,6 +129,14 @@ p {
 [type=submit].delete:disabled {
   background: #ccc;
 }
+[type=submit].delete:hover {
+	transition: .2s;
+  background: rgb(137, 22, 22);
+}
+[type=submit].post:hover {
+	transition: .2s;
+  background: rgb(128, 128, 128);
+}
 /* ---- ボタン(商品個数指定) ---- */
 [type=button] {
 	width: 80px;
@@ -393,7 +401,7 @@ li.error_msg  {
 	line-height: 2.8rem;
 	min-width: 7rem;
 	margin-right: 20px;
-	font-size: 1rem;
+/*	font-size: 1rem;*/
 }
 
 .user_info_form_area .send_button,
@@ -413,12 +421,16 @@ li.error_msg  {
 	display: block;
 	width: 100%;
 	margin-top:30px;
+	display: flex;
+	padding: 12px 0;
 }
 .detail_button_area form {
 	 /* display: inline-block; */
-	width:25%;
-	/* margin-left:5%; */
-	text-align: center;
+/*	width:25%;*/
+	margin-left:5%; 
+/*	text-align: center;*/
+	display: flex;
+	align-items: center;
 }
 .detail_button_area form:first-of-type{
 	text-align: right;
@@ -447,12 +459,14 @@ li.error_msg  {
 	max-width: 300px;	
 	height: auto;
 	max-height: 300px;
+	padding-top: 20%;
 }
 .item_input_area img{
 	width: 100%;
 	max-width: 300px;	
 	height: auto;
 	max-height: 300px;
+	padding-top: 20%;
 }
 .item_detail_list {
 	width: 50%;
@@ -647,42 +661,7 @@ select {
 	justify-content: space-between;
 }
 /*いいねボタン*/
-.good_button{
-	border-radius: 50%;/*角っこの丸み*/
-/*	width: 70px;*/
-/*    height: 70px;*/
-	background: rgb(255, 255, 255);/*背景色*/
-	color: rgb(255, 0, 128);/*文字色*/
-	display: flex;/*並列にする*/
-	transition: .3s;/* なめらか変化 */
-	/*上下中央寄せ*/
-	align-items: center;
-	justify-content: center;
-	/*右に寄せる*/
-	margin-left: 230px;
-}
-/*ボタンにカーソルを合わせた時のアクション*/
-.good_button:hover{
-	background: rgb(192, 192, 192);
-}
-.good_button_ON{
-	border-radius: 50%;/*角っこの丸み*/
-/*	width: 70px;*/
-/*    height: 70px;*/
-	background: rgb(255, 0, 128);/*背景色*/
-	color: #FFF;/*文字色*/
-	display: flex;/*並列にする*/
-	transition: .3s;/* なめらか変化 */
-	/*上下中央寄せ*/
-	align-items: center;
-	justify-content: center;
-	/*右に寄せる*/
-	margin-left: 230px;
-}
-/*ボタンにカーソルを合わせた時のアクション*/
-.good_button_ON:hover{
-	background: rgb(164, 0, 82);
-}
+
 
 /* ---- 注文一覧 ---- */
 .list_table.order{

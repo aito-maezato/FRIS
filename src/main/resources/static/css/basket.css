@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+[type=submit].post:hover{
+	background-color: black;
+
+}
+.user_info_form_area shopping_button.post{
+	background-color: black;
+}
+.item_send:hover{
+	transition: .2s;
+	background-color: rgb(164, 164, 164);
+}

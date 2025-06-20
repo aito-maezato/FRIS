@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+/*全体背景と文字色 */
+body.user.user_regist_input {
+    background-color: #f7f7f7;
+    color: #333;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+.url {
+	text-decoration: none;
+	color: inherit;
+}
+/* タイトル */
+h2.title {
+    text-align: center;
+/*    font-size: 28px;*/
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+.header {
+    background-color: darkorange;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.site-title {
+    font-size: 24px;
+    margin: 0;
+}
+/* 入力メッセージ */
+.input_message {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 30px;
+}
+/* フォームの囲み */
+.user_info_form_area {
+    width: 500px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+/* 入力欄のラベルとフィールド */
+.input_list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.input_list li {
+    margin-bottom: 20px;
+}
+.input_title {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #34495e;
+}
+.input_list input[type="text"],
+.input_list input[type="password"],
+.input_list textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+/* ボタン共通 */
+.send_button,
+.back_button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+/* 確認ボタン */
+.send_button {
+    background-color: #3498db;
+    color: white;
+}
+.send_button:hover {
+    background-color: #2980b9;
+}
+/* 戻るボタン */
+.back_button {
+    background-color: #bdc3c7;
+    color: white;
+}
+.back_button:hover {
+    background-color: #95a5a6;
+}
+/* エラーリスト */
+.error_list {
+    background-color: #ffe6e6;
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    padding: 10px 15px;
+    border-radius: 5px;
+    list-style: none;
+    margin-bottom: 20px;
+}

@@ -8,8 +8,10 @@
 </head>
 
 <body class="user user_regist_complete">
-	<header class="site-header">
-		<h1>FRIS弁当ショップ</h1>
+	<header class="header">
+		<a th:href="@{/}" class="url">
+			<h1 class="site-title">FRIS弁当ショップ</h1>
+		</a>
 	</header>
 	<h2 th:class="title" th:text="#{user}+#{title.input.complete}"></h2>
 	<p class="complete_message" th:text="#{user}+#{msg.regist.complete}"></p>

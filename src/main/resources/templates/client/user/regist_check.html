@@ -8,8 +8,10 @@
 </head>
 
 <body class="user user_regist_check">
-	<header class="site-header">
-		<h1>FRIS弁当ショップ</h1>
+	<header class="header">
+		<a th:href="@{/}" class="url">
+			<h1 class="site-title">FRIS弁当ショップ</h1>
+		</a>
 	</header>
 	<div class="container">
 		<h2 class="page-title" th:text="#{user}+#{title.input.check}">会員情報確認</h2>

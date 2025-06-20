@@ -8,8 +8,10 @@
 </head>
 
 <body class="user user_regist_input">
-	<header class="site-header">
-		<h1>FRIS弁当ショップ</h1>
+	<header class="header">
+		<a th:href="@{/}" class="url">
+			<h1 class="site-title">FRIS弁当ショップ</h1>
+		</a>
 	</header>
 	<h2 th:class="title" th:text="#{user}+#{title.input.new}"></h2>
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>

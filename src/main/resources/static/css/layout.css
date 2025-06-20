@@ -128,7 +128,7 @@ header {
 .search_area .title,
 .main .title
  {
-	background-color: #3d98bf;
+	background-color: darkorange;
 	margin: 0;
 	padding: 5px 8px;
 	color: #fff;
@@ -231,7 +231,7 @@ aside.admin_menu {
 
 /* ---- メイン ---- */
 .main {
-	width: 76%;
+	width: 100%;/*76*/
 	padding-bottom: 80px;
 
 }

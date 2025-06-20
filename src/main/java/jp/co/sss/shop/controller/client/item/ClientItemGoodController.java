@@ -3,7 +3,6 @@ package jp.co.sss.shop.controller.client.item;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +17,6 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Good;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.GoodForm;
 import jp.co.sss.shop.repository.GoodRepository;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -80,7 +78,7 @@ public class ClientItemGoodController {
 		// stringに変換
 		
 		//商品の口コミをリクエストスコープに保存
-		model.addAttribute("reviews",reviewsRepository.findByItemId(item.getId()));
+		model.addAttribute("reviews",reviewsRepository.findByItemIdOrderByIdDesc(item.getId()));
 		
 		// ItemIdに一致する行を探して保存する
 //		model.addAttribute("good",goodRepository.findByItemId(ItemId));

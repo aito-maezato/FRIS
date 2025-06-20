@@ -66,7 +66,7 @@
 		</div>
 		<div th:if="${session.user != null}">
 			<h1>口コミを投稿！！</h1>
-			<form th:action="@{/client/item/detail/Reviews}" method="post" class="user_info_form">
+			<form th:action="@{/client/item/detail/Reviews}" method="post" class="user_info_form" onsubmit="return confirmsubmit()">
 				<textarea name="reviews" cols="50" rows="10" maxlength="20"></textarea><br>
 				<input type="submit" value="投稿" class="post_button">
 				<input type="hidden" name="userId" th:value="${session.user.id}">
@@ -83,7 +83,7 @@
 					<td th:text="${kuchikomi.Reviews}"></td>
 					<!--自分が書いた口コミは削除可能にする-->
 					<td th:if="${session.user != null && kuchikomi.userId == session.user.id}">
-						<form th:action="@{/client/item/detail/Reviews/delete_check_flag}">
+						<form th:action="@{/client/item/detail/Reviews/delete_check_flag}" onsubmit="return confirmsubmit()">
 							<input type="submit" value="削除" class="delete_flag_change">
 							<input type="hidden" name="hidden-item-id" th:value="*{id}">
 							<input type="hidden" name="hidden-review-id" th:value="${kuchikomi.id}">
@@ -93,7 +93,11 @@
 			</table>
 		</div>
 	</div>
-
+	<script>
+	function confirmsubmit()
+	{
+		return confirm("本当によろしいですか？");
+	}
+</script>
 </body>
-
 </html>

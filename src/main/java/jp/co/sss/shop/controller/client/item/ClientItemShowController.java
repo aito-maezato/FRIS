@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.entity.Allergy;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
@@ -43,7 +44,7 @@ public class ClientItemShowController {
 	CategoryService categoryService;
 	@Autowired
 	AllergyService allergyService;
-
+	
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
@@ -57,7 +58,7 @@ public class ClientItemShowController {
 	 * @return "index" トップ画面
 	 */
 	@RequestMapping(path = "/", method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(Model model, Pageable pageable,OrderItem orderItemList) {
+	public String index(Model model, Pageable pageable,OrderItem orderItemList,HttpSession session) {
 		
 		    if (orderItemList!= null) {
 			    model.addAttribute("items", itemRepository.findByDeleteFlagOrderByHotSellDescPage(Constant.NOT_DELETED, pageable));
@@ -66,7 +67,9 @@ public class ClientItemShowController {
 			    model.addAttribute("sortType",1);
 		    }
 		    List<Allergy> allergies = allergyService.findAll();
-		    model.addAttribute("allergyList", allergies);
+//		    model.addAttribute("allergyList", allergies);
+		    session.setAttribute("allergyList", allergies);
+		    System.out.println();
 		    return "index";
 		    }
 	
@@ -97,7 +100,7 @@ public class ClientItemShowController {
         model.addAttribute("items", itemList);
         model.addAttribute("pages", itemsPage);
 	    List<Allergy> allergies = allergyService.findAll();
-	    model.addAttribute("allergyList", allergies);
+	    //model.addAttribute("allergyList", allergies);
         // 商品一覧画面を表示
         return "client/item/list";
     }
@@ -156,7 +159,7 @@ public class ClientItemShowController {
 		}
 		List<Allergy> allergies = allergyService.findAll();
 		model.addAttribute("items", items);
-		model.addAttribute("allergyList", allergies);
+//		model.addAttribute("allergyList", allergies);
 		model.addAttribute("selectedAllergies", allergyIds);
 		return "/client/item/list";
 	}

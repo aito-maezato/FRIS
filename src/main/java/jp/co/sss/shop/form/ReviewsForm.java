@@ -2,11 +2,15 @@ package jp.co.sss.shop.form;
 
 import java.io.Serializable;
 
+import jakarta.validation.constraints.Size;
+
 public class ReviewsForm implements Serializable {
 	
 	private Integer id;
 	private Integer userId;
 	private Integer itemId;
+	
+	@Size(min = 1,max=200)
 	private String reviews;
 	private Integer deleteFlag = 0;
 	

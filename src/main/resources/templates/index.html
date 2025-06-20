@@ -6,6 +6,9 @@
 <meta charset="UTF-8" />
 </head>
 <body class="user index">
+	<div class="topimg">
+		<img th:src="@{/images/common/no_image.jpg}"/>
+	</div>
 	<div>
 		<h2 class="title">
 				<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
@@ -19,10 +22,19 @@
 	<th:block th:each="item, status: ${items}" th:if="${status.count le 10}">
 		<!--/* 1件分の商品情報 */-->
 		<div class="item">
-			<div class="item_name" th:text="${item.name}"></div>
 			<a th:href="@{/client/item/detail/}+${item.id}">
 			    <img th:src="@{/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
 			    <img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
+			    <div class="item_bottom">
+					<div class="item_info">
+						<span class="item_c"th:text="${item.category.name}"></span>
+						<span class="item_name"th:text="${item.name}"></span>
+					</div>
+					<div class="item_info">
+						<span class="item_price" th:text="${item.price}"></span>
+						<span>円</span>
+					</div>
+				</div>
 			</a>
 		</div>
 	</div>

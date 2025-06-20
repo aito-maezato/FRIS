@@ -3,10 +3,12 @@ package jp.co.sss.shop.controller.client.item;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import jp.co.sss.shop.entity.Reviews;
 import jp.co.sss.shop.form.ReviewsForm;
 import jp.co.sss.shop.repository.ReviewsRepository;
@@ -25,7 +27,11 @@ public class ClientItemReviewController {
 	
 	//口コミ登録確認
 	@PostMapping("/client/item/detail/Reviews")
-	public String aa(ReviewsForm form) {
+	public String aa(@Valid ReviewsForm form,BindingResult result) {
+		if (result.hasErrors()) {
+			return "redirect:/client/item/detail/"+form.getItemId();
+			}
+
 		//口コミテーブルエンティティのオブジェクトを作成
 		Reviews reviews = new Reviews();
 		//フォームの内容をオブジェクトに保存

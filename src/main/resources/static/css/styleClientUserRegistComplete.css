@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+
+/* ページ全体のレイアウト */
+body.user_regist_complete {
+    background-color: #f7f7f7;
+    color: #333;
+}
+/* 見出し */
+h2.title {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+}
+/* ヘッダー部分 */
+.header {
+    background-color: darkorange;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.url {
+	text-decoration: none;
+	color: inherit;
+}
+/* メッセージ文 */
+.complete_message {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 30px;
+}
+/* リンク（トップに戻る） */
+.complete_link a {
+    display: inline-block;
+    background-color: #ff9900;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+.complete_link a:hover {
+    background-color: #e68a00;
+}
